@@ -939,9 +939,9 @@ def torch_safe_load(weight, safe_only=False):
                 safe_pickle.Unpickler = SafeUnpickler
                 safe_pickle.load = lambda file_obj: SafeUnpickler(file_obj).load()
                 with open(file, "rb") as f:
-                    ckpt = torch.load(f, pickle_module=safe_pickle)
+                   ckpt = torch.load(f, pickle_module=safe_pickle)
             else:
-                ckpt = torch.load(file, map_location="cpu")
+                ckpt = torch.load(file, map_location="cpu", weights_only=False)
 
     except ModuleNotFoundError as e:  # e.name is missing module name
         if e.name == "models":
